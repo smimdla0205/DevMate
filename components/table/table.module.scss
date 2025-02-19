@@ -1,0 +1,6 @@
+.container{
+  color: $color-red;
+  @include tablet {
+    color: $color-blue;
+  }
+}

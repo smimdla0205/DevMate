@@ -1,0 +1,15 @@
+@use "./reset.scss" as *;
+@use "./colors.scss" as *;
+@use "./mixin.scss" as *;
+@use "./fonts.scss" as *;
+
+body {
+  min-height: 100vh;
+  position: relative;
+  font-family: 'Pretendard', 'Inter',
+}
+
+header {
+  position: relative;
+  //z-index: 100;
+}
