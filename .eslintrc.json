@@ -5,7 +5,7 @@
     "node": true
   },
 
-   "extends": [
+  "extends": [
     "next/core-web-vitals",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -19,7 +19,7 @@
   "plugins": ["perfectionist", "security"],
 
   "parser": "@typescript-eslint/parser",
-   "parserOptions": {
+  "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
     },
@@ -29,7 +29,7 @@
   },
 
   "rules": {
-     "prettier/prettier": [
+    "prettier/prettier": [
       "error",
       {
         "singleQuote": false,
@@ -71,14 +71,14 @@
             "react": ["react"],
             "related-react": ["react-*"],
             "next": ["next", "next/**"],
-            "style" : ["**/**.module.css", "**/style/**"],
-            "hooks": ["**/use_*","**/hooks/**"],
-            "components":[ "**/components/**", "**/_components/**"],
-            "services" : ["**/services/**"],
-            "repositories" : ["**/repositories/**"],
-            "entities" : ["**/entities/**"],
+            "style": ["**/**.module.css", "**/style/**"],
+            "hooks": ["**/use_*", "**/hooks/**"],
+            "components": ["**/components/**", "**/_components/**"],
+            "services": ["**/services/**"],
+            "repositories": ["**/repositories/**"],
+            "entities": ["**/entities/**"],
             "utils": ["**/utils/**"],
-            "constants" : ["**/constants/**"]
+            "constants": ["**/constants/**"]
           },
           "type": {
             "react": "react"
@@ -88,12 +88,11 @@
       }
     ],
 
-
     "import/no-unresolved": "error",
 
     "import/no-cycle": "error",
-  
-     "@typescript-eslint/consistent-type-imports": [
+
+    "@typescript-eslint/consistent-type-imports": [
       "error",
       {
         "fixStyle": "separate-type-imports"
