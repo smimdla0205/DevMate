@@ -1,11 +1,15 @@
 import type { ReactNode } from "react";
 
+import Header from "@/components/header/Header";
+
 export default function AnonLayout({ children }: { children: ReactNode }) {
   return (
-    <div>
-      <header>헤더</header>
-      <main>{children}</main>
+    <>
+      <Header />
+      <div>
+        <main style={{ paddingTop: "64px" }}>{children}</main>
+      </div>
       <footer>푸터</footer>
-    </div>
+    </>
   );
 }
