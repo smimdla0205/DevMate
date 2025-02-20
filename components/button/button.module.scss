@@ -7,7 +7,7 @@
   text-align: center;
 
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
   border: 1.5px solid transparent;
 
   svg {
@@ -22,24 +22,40 @@
   background-color: $color-main;
   color: white;
   border-color: $color-main;
+
+  &:active {
+    background-color: darken($color-main, 10%);
+  }
 }
 
 .sub {
   background-color: white;
   color: black;
   border-color: $color-solid-line;
+
+  &:active {
+    background-color: darken(white, 10%);
+  }
 }
 
 .black {
   background-color: #3e4042;
   color: white;
   border-color: $color-solid-line;
+
+  &:active {
+    background-color: darken(#3e4042, 10%);
+  }
 }
 
 .outline {
   background-color: white;
   color: black;
   border-color: $color-main;
+
+  &:active {
+    background-color: darken(white, 10%);
+  }
 }
 
 /* 크기 */
