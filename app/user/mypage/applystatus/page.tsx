@@ -1,8 +1,8 @@
 export default function Page() {
   return (
     <div>
-      <h1>Projects</h1>
-      <p>Projects page</p>
+      <h1>Apply Status</h1>
+      <p>Apply Status page</p>
     </div>
   );
 }
