@@ -12,3 +12,162 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// 성별 Enum
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+// 지원 상태 Enum
+enum ApplyStatus {
+  WAITING
+  ACCEPT
+  REJECT
+}
+
+// 사용자
+model User {
+  id         String   @id @default(uuid()) // 고유 ID
+  email      String   @unique // 이메일 (로그인 ID)
+  password   String   // 비밀번호
+  name       String   // 이름
+  nickname   String   @unique // 닉네임
+  gender     Gender   // 성별 (Enum)
+  birthDate  DateTime // 생년월일
+  position   String   // 직군
+  address    String   // 주소
+  career     Int      @default(0) // 경력 (단위: 년)
+  profileImg String?  // 프로필 이미지 URL
+  createdAt  DateTime @default(now()) // 생성일
+
+  techStack  TechStackTag[] // 사용자의 기술 스택
+  comments   Comment[] // 사용자가 작성한 댓글
+  notices    Notice[]  // 사용자가 작성한 공지사항
+  applications Apply[] // 사용자가 지원한 프로젝트 목록
+  member     Member[] // 사용자가 속한 프로젝트 멤버 정보
+  projects Project[] // 사용자가 만든 프로젝트
+
+  @@index([email])
+  @@index([nickname])
+}
+
+// 프로젝트
+model Project {
+  id                 Int        @id @default(autoincrement()) // 프로젝트 ID
+  leaderId           String     // 프로젝트 리더 ID
+  recruitmentTitle   String     // 모집글 제목
+  projectTitle       String     // 프로젝트명
+  goal               String?    // 프로젝트 목표
+  description        String     // 프로젝트 설명
+  projectPeriodStart DateTime   // 프로젝트 시작 기간
+  projectPeriodEnd   DateTime   // 프로젝트 종료 기간
+  recruitmentStart   DateTime   // 모집 시작일
+  recruitmentEnd     DateTime   // 모집 마감일
+  createdAt          DateTime   @default(now()) // 생성일
+
+  leader            User       @relation(fields: [leaderId], references: [id], onDelete: Cascade) // 프로젝트 리더
+  comments          Comment[]  // 프로젝트 관련 댓글
+  notices           Notice[]   // 프로젝트 공지사항
+  tags              ProjectTag[] // 프로젝트 관련 태그
+  applications      Apply[]    // 프로젝트 지원자 목록
+  member            Member[]   // 프로젝트 멤버 목록
+
+  @@index([leaderId])
+}
+
+// 프로젝트 멤버
+model Member {
+  id           Int      @id @default(autoincrement()) // 멤버 ID
+  projectId    Int      // 프로젝트 ID
+  userId       String   // 사용자 ID
+
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade) // 프로젝트와 연결
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade) // 사용자와 연결
+
+  @@unique([projectId, userId])
+  @@index([userId])
+}
+
+// 프로젝트 지원서
+model Apply {
+  id           Int      @id @default(autoincrement()) // 지원 ID
+  projectId    Int      // 지원한 프로젝트 ID
+  userId       String   // 지원자 ID
+  position     String   // 지원 포지션
+  introduction String   // 자기소개서
+  portfolioUrl String?  // 포트폴리오 URL
+  status       ApplyStatus   @default(WAITING) // 지원 상태 (Enum)
+
+  project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+  @@index([userId])
+}
+
+// 공지사항
+model Notice {
+  id         Int      @id @default(autoincrement()) // 공지 ID
+  projectId  Int      // 공지가 속한 프로젝트 ID
+  userId     String   // 작성자 ID
+  content    String   // 공지 내용
+  createdAt  DateTime @default(now()) // 작성일
+
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// 댓글
+model Comment {
+  id             Int      @id @default(autoincrement()) // 댓글 ID
+  userId         String   // 작성자 ID
+  projectId      Int      // 프로젝트 ID
+  parentCommentId Int?  // 부모 댓글 ID (대댓글)
+  content        String   // 댓글 내용
+  createdAt      DateTime @default(now()) // 작성일
+
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  project        Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  parentComment  Comment? @relation("CommentToParent", fields: [parentCommentId], references: [id], onDelete: Cascade) // 부모 댓글
+  replies        Comment[] @relation("CommentToParent") // 대댓글 목록
+
+  @@index([userId])
+  @@index([projectId])
+}
+
+// 태그
+model Tag {
+  id           Int    @id @default(autoincrement()) // 태그 ID
+  tagName      String @unique // 태그명
+
+  projects     ProjectTag[] // 프로젝트 태그 관계
+  techStackTag TechStackTag[] // 기술 스택 태그 관계
+}
+
+// 프로젝트 태그 (다대다 관계)
+model ProjectTag {
+  projectId Int
+  tagId     Int
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tag     Tag     @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, tagId])
+  @@index([tagId])
+}
+
+// 기술 스택 태그 (다대다 관계)
+model TechStackTag {
+  userId String
+  tagId  Int
+
+  user   User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tag    Tag   @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, tagId])
+  @@index([tagId])
+}
+
+// npx prisma migrate dev --name init
