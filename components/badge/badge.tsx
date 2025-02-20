@@ -11,12 +11,11 @@ interface BadgeProps {
   width?: number;
   height?: number;
   borderRadius?: number;
-  onclick?: () => void;
 }
 
-const Badge = ({ children, color = "primary", fontColor, width, height, borderRadius, onclick }: BadgeProps) => {
+const Badge = ({ children, color = "primary", fontColor, width, height, borderRadius }: BadgeProps) => {
   return (
-    <span
+    <div
       className={`${styles.badge} ${styles[`badge-${color}`]}`}
       style={{
         color: fontColor !== undefined ? fontColor : undefined,
@@ -24,10 +23,9 @@ const Badge = ({ children, color = "primary", fontColor, width, height, borderRa
         height: height !== undefined ? `${height}px` : undefined,
         borderRadius: borderRadius !== undefined ? `${borderRadius}px` : undefined,
       }}
-      onClick={onclick}
     >
       {children}
-    </span>
+    </div>
   );
 };
 
