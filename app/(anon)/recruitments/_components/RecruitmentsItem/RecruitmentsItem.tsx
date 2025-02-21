@@ -1,5 +1,7 @@
 import styles from "./RecruitmentsItem.module.scss";
 
+import RecruitmentsTag from "../RecruitmentsTag/RecruitmentsTag";
+
 import { FaHeart, FaEye, FaComment } from "react-icons/fa";
 
 export default function RecruitmentsItem() {
@@ -12,10 +14,7 @@ export default function RecruitmentsItem() {
             <h2 className={styles["main__post-title"]}>프로젝트 제목</h2>
           </div>
           <p className={styles["main__post-description"]}>프로젝트 설명이 여기에 들어갑니다.</p>
-          <div className={styles["main__post-tags"]}>
-            <span className={styles["main__post-tag"]}>#React</span>
-            <span className={styles["main__post-tag"]}>#Next.js</span>
-          </div>
+          <RecruitmentsTag tags={["Next.js", "React"]} />
           <div className={styles["main__post-meta"]}>
             <div>
               <span className={styles["main__post-author"]}>신짱구</span>
