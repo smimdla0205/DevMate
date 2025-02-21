@@ -1,6 +1,8 @@
 import styles from "./Recruitments.module.scss";
 
-import { FaSearch, FaHashtag, FaHeart, FaEye, FaComment } from "react-icons/fa";
+import RecruitmentsItem from "./_components/RecruitmentsItem/RecruitmentsItem";
+
+import { FaSearch, FaHashtag } from "react-icons/fa";
 
 export default function Recruitments() {
   return (
@@ -54,39 +56,7 @@ export default function Recruitments() {
 
         {/* 글 리스트 */}
         <div className={styles["main__post-list"]}>
-          {[...Array(3)].map((_, index) => (
-            <div key={index} className={styles["main__post-item"]}>
-              <div className={styles["main__post-content"]}>
-                <div className={styles["main__post-header"]}>
-                  <div className={styles["main__post-status"]}>모집중</div>
-                  <h2 className={styles["main__post-title"]}>프로젝트 제목 {index + 1}</h2>
-                </div>
-                <p className={styles["main__post-description"]}>프로젝트 설명이 여기에 들어갑니다.</p>
-                <div className={styles["main__post-tags"]}>
-                  <span className={styles["main__post-tag"]}>#React</span>
-                  <span className={styles["main__post-tag"]}>#Next.js</span>
-                </div>
-                <div className={styles["main__post-meta"]}>
-                  <div>
-                    <span className={styles["main__post-author"]}>신짱구</span>
-                    <span className={styles["main__post-dot"]}>·</span>
-                    <span className={styles["main__post-date"]}>5분 전</span>
-                  </div>
-                  <div className={styles["main__post-stats"]}>
-                    <div className={styles["main__post-stats-heart"]}>
-                      <FaHeart /> <span>12</span>
-                    </div>
-                    <div className={styles["main__post-stats-eye"]}>
-                      <FaEye /> <span>34</span>
-                    </div>
-                    <div className={styles["main__post-stats-comment"]}>
-                      <FaComment /> <span>5</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+          <RecruitmentsItem />
         </div>
       </div>
     </div>
