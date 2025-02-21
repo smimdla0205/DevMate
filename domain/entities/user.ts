@@ -1,12 +1,10 @@
-import type { $Enums } from "@prisma/client";
-
-export interface User {
+export interface UserBasicInfo {
   id: string;
   email: string;
   password: string;
   name: string;
   nickname: string;
-  gender: $Enums.Gender;
+  gender: string;
   birthDate: Date;
   position: string;
   address: string;
@@ -14,3 +12,15 @@ export interface User {
   profileImg?: string | null;
   createdAt: Date;
 }
+
+/*
+export interface UserRelations {
+  techStack?: TechStackTag[];
+  comments?: Comment[];
+  notices?: Notice[];
+  applications?: Apply[];
+  member?: Member[];
+  projects?: Project[];
+}
+*/
+export type User = UserBasicInfo; //& UserRelations;

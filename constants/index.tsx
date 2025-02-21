@@ -1,7 +1,5 @@
-import type { Gender as GenderType } from "@/types";
-
 export const Gender = {
-  MALE: "MALE" as GenderType,
-  FEMALE: "FEMALE" as GenderType,
-  OTHER: "OTHER" as GenderType,
+  MALE: "MALE",
+  FEMALE: "FEMALE",
+  OTHER: "OTHER",
 } as const;
