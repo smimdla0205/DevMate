@@ -33,7 +33,8 @@ const InputField: React.FC<InputFieldProps> = ({
     <div className={`${styles.inputField} ${error ? styles.errorField : ""}`}>
       {label && <label>{label}</label>}
       <div
-        className={`${styles.inputContainer} ${!onIconClick ? styles.hasIconLeft : ""} ${onIconClick ? styles.hasIconRight : ""}`}
+        className={`${styles.inputContainer} 
+                 ${Icon ? (!onIconClick ? styles.hasIconLeft : styles.hasIconRight) : ""}`}
       >
         {/* 왼쪽 아이콘의 경우 클릭 이벤트 없음 */}
         {!onIconClick && Icon && (
