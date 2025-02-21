@@ -3,10 +3,10 @@ import styles from "./button.module.scss";
 type buttonVariant = "main" | "sub" | "black" | "outline";
 type buttonSize = "small" | "large" | "long";
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> {
   variant?: buttonVariant;
   size?: buttonSize;
-  onClick: () => void;
+  onClick: () => void; // ✅ 필수 속성으로 지정
 }
 
 export default function Button({ children, variant = "main", size = "small", onClick, ...props }: ButtonProps) {
