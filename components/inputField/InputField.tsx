@@ -14,7 +14,6 @@ interface InputFieldProps {
   success?: string | null;
   disabled?: boolean;
   icon?: IconType;
-  iconPosition?: "left" | "right";
   onIconClick?: () => void;
 }
 
@@ -28,28 +27,26 @@ const InputField: React.FC<InputFieldProps> = ({
   success,
   disabled = false,
   icon: Icon,
-  iconPosition = "right",
   onIconClick,
 }) => {
-  const hasLeftIcon = Icon && iconPosition === "left";
-  const hasRightIcon = Icon && iconPosition === "right";
-
   return (
     <div className={`${styles.inputField} ${error ? styles.errorField : ""}`}>
       {label && <label>{label}</label>}
       <div
-        className={`${styles.inputContainer} ${hasLeftIcon ? styles.hasIconLeft : ""} ${hasRightIcon ? styles.hasIconRight : ""}`}
+        className={`${styles.inputContainer} ${!onIconClick ? styles.hasIconLeft : ""} ${onIconClick ? styles.hasIconRight : ""}`}
       >
-        {hasLeftIcon && (
-          <span className={styles.iconContainer} onClick={onIconClick}>
+        {/* 왼쪽 아이콘의 경우 클릭 이벤트 없음 */}
+        {!onIconClick && Icon && (
+          <span className={styles.iconContainer}>
             <Icon size={20} />
           </span>
         )}
+
         <input type={type} value={value} onChange={onChange} placeholder={placeholder} disabled={disabled} />
-        {hasRightIcon && (
-          <span className={styles.iconContainer} onClick={onIconClick}>
+        {onIconClick && Icon && (
+          <button className={styles.iconContainer} onClick={onIconClick}>
             <Icon size={20} />
-          </span>
+          </button>
         )}
       </div>
       {error && <p className={styles.errorMessage}>{error}</p>}
