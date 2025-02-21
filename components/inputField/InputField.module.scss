@@ -35,17 +35,12 @@
 
   .iconContainer {
     position: absolute;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 100%;
     color: #898989;
-
-    &:hover {
-      color: #2563eb;
-    }
   }
 
   .hasIconLeft input {
