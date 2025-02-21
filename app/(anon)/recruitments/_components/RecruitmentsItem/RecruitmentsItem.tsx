@@ -1,5 +1,6 @@
 import styles from "./RecruitmentsItem.module.scss";
 
+import Badge from "./../../../../../components/badge/badge";
 import RecruitmentsTag from "../RecruitmentsTag/RecruitmentsTag";
 
 import { FaHeart, FaEye, FaComment } from "react-icons/fa";
@@ -10,7 +11,9 @@ export default function RecruitmentsItem() {
       <div className={styles["main__post-item"]}>
         <div className={styles["main__post-content"]}>
           <div className={styles["main__post-header"]}>
-            <div className={styles["main__post-status"]}>모집중</div>
+            <Badge color="primary" fontColor="white" width={60} height={24} borderRadius={16} fontSize={12}>
+              모집중
+            </Badge>
             <h2 className={styles["main__post-title"]}>프로젝트 제목</h2>
           </div>
           <p className={styles["main__post-description"]}>프로젝트 설명이 여기에 들어갑니다.</p>
