@@ -7,6 +7,12 @@ body {
   position: relative;
   font-family: "Pretendard", "Inter";
 }
+div {
+  user-select: none;
+}
+table {
+  user-select: none;
+}
 
 header {
   position: relative;
