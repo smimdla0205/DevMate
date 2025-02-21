@@ -4,6 +4,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 
 import Table from "@/components/table/table";
+import InputField from "@/components/inputField/InputField";
 
 import styles from "./ProjectDetail.module.scss";
 
@@ -66,8 +67,9 @@ export default function ProjectDetail() {
           </div>
 
           {isNoticeEdit ? (
-            <input type="text" defaultValue={noticeContent} onChange={(e) => setNoticeContent(e.target.value)} />
+            <InputField value={noticeContent} onChange={(e) => setNoticeContent(e.target.value)} />
           ) : (
+            // <input type="text" defaultValue={noticeContent} onChange={(e) => setNoticeContent(e.target.value)} />
             <p>{noticeContent}</p>
           )}
         </div>
