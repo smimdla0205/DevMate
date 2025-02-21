@@ -7,19 +7,9 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// 성별 Enum
-enum Gender {
-  MALE
-  FEMALE
-  OTHER
-}
+// 성별 Enum = "MALE" | "FEMALE" | "OTHER"
 
-// 지원 상태 Enum
-enum ApplyStatus {
-  WAITING
-  ACCEPT
-  REJECT
-}
+// 지원 상태 Enum = "WAITING" | "ACCEPT" | "REJECT"
 
 // 사용자
 model User {
@@ -28,7 +18,7 @@ model User {
   password   String   // 비밀번호
   name       String   // 이름
   nickname   String   @unique // 닉네임
-  gender     Gender   // 성별 (Enum)
+  gender     String   // 성별 (Enum)
   birthDate  DateTime // 생년월일
   position   String   // 직군
   address    String   // 주소
@@ -94,7 +84,7 @@ model Apply {
   position     String   // 지원 포지션
   introduction String   // 자기소개서
   portfolioUrl String?  // 포트폴리오 URL
-  status       ApplyStatus   @default(WAITING) // 지원 상태 (Enum)
+  status       String   @default("WAITING") // 지원 상태 (Enum)
 
   project      Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
