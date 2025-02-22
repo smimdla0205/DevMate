@@ -1,42 +1,40 @@
-.container__gender {
+.genderSelector {
   display: flex;
   gap: 10px;
-}
 
-.container__gender__label {
-  position: relative;
-  cursor: pointer;
-}
-
-.container__gender__input {
-  display: none;
-}
-
-.container__gender__button {
-  display: inline-block;
-  padding: 15px 20px;
-
-  border: 1.5px solid transparent;
-  border-color: $color-solid-line;
-  border-radius: 4px;
-
-  transition: all 0.2s ease-in-out;
-
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-
-  background-color: white;
-  color: black;
-
-  &:active {
-    background-color: $color-main;
+  &__label {
+    position: relative;
+    cursor: pointer;
   }
-}
 
-/* 선택된 경우 (라디오 버튼이 체크된 상태) */
-.container__gender__input:checked + .container__gender__button {
-  background-color: $color-main;
-  color: white;
-  border-color: $color-main;
+  &__input {
+    display: none;
+  }
+
+  &__button {
+    display: inline-block;
+    padding: 15px 20px;
+    border: 1.5px solid $color-solid-line;
+    border-radius: 4px;
+
+    transition: all 0.2s ease-in-out;
+
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+
+    background-color: white;
+    color: black;
+
+    &:active {
+      background-color: $color-main;
+    }
+  }
+
+  /* 선택된 경우 (라디오 버튼이 체크된 상태) */
+  &__input:checked + &__button {
+    background-color: $color-main;
+    color: white;
+    border-color: $color-main;
+  }
 }

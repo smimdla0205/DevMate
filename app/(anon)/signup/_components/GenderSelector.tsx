@@ -1,4 +1,6 @@
-import styles from "./GenderSelector.module.scss";
+import styles from "./genderSelector.module.scss";
+
+import { GENDER } from "@/constants";
 
 interface GenderSelectorProps {
   selectedGender: string;
@@ -7,30 +9,32 @@ interface GenderSelectorProps {
 }
 
 export default function GenderSelector({ selectedGender, onChange, className }: GenderSelectorProps) {
+  const { genderSelector, genderSelector__label, genderSelector__input, genderSelector__button } = styles;
+
   return (
-    <div className={`${styles.container__gender} ${className}`}>
-      <label className={styles.container__gender__label}>
+    <div className={`${genderSelector} ${className}`}>
+      <label className={genderSelector__label}>
         <input
           type="radio"
           name="gender"
-          value="male"
-          checked={selectedGender === "male"}
-          onChange={() => onChange("male")}
-          className={styles.container__gender__input}
+          value={GENDER.MALE}
+          checked={selectedGender === GENDER.MALE}
+          onChange={() => onChange(GENDER.MALE)}
+          className={genderSelector__input}
         />
-        <span className={styles.container__gender__button}>남</span>
+        <span className={genderSelector__button}>남</span>
       </label>
 
-      <label className={styles.container__gender__label}>
+      <label className={genderSelector__label}>
         <input
           type="radio"
           name="gender"
-          value="female"
-          checked={selectedGender === "female"}
-          onChange={() => onChange("female")}
-          className={styles.container__gender__input}
+          value={GENDER.FEMALE}
+          checked={selectedGender === GENDER.FEMALE}
+          onChange={() => onChange(GENDER.FEMALE)}
+          className={genderSelector__input}
         />
-        <span className={styles.container__gender__button}>여</span>
+        <span className={genderSelector__button}>여</span>
       </label>
     </div>
   );
