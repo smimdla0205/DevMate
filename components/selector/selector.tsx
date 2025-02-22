@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 import Select from "react-select";
 
 import styles from "./selector.module.scss";
@@ -10,15 +12,17 @@ interface SelectOption {
 }
 
 interface SelectorProps {
+  name?: string;
   options: SelectOption[]; // 옵션 리스트
   selectedValue: SingleValue<SelectOption> | MultiValue<SelectOption>; // 단일 또는 다중 선택 값
-  onChange: (selected: SingleValue<SelectOption> | MultiValue<SelectOption> | null) => void;
+  onChange: (selected: SingleValue<SelectOption> | MultiValue<SelectOption> | null, name?: string) => void;
   placeholder?: string;
   isMulti?: boolean;
-  title: string;
+  title?: string;
 }
 
 export default function Selector({
+  name,
   title,
   options,
   selectedValue,
@@ -27,20 +31,21 @@ export default function Selector({
   isMulti = false,
 }: SelectorProps) {
   const { container } = styles;
-
+  const instanceId = useId();
   return (
     <div className={container}>
-      <label>{title}</label>
+      {title && <label>{title}</label>}
       <Select
+        instanceId={instanceId}
         isMulti={isMulti}
         options={options}
         value={selectedValue}
         placeholder={placeholder || "선택해주세요"}
         onChange={(newValue) => {
           if (isMulti) {
-            onChange((newValue as MultiValue<SelectOption>) || []);
+            onChange((newValue as MultiValue<SelectOption>) || [], name);
           } else {
-            onChange(newValue as SingleValue<SelectOption>);
+            onChange(newValue as SingleValue<SelectOption>, name);
           }
         }}
         styles={{

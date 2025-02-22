@@ -1,12 +1,23 @@
 import type { SelectOption } from "@/types";
 
-export const GENDER = {
-  MALE: "MALE",
-  FEMALE: "FEMALE",
-  OTHER: "OTHER",
-} as const;
+export const BIRTH_YEAR_OPTIONS: SelectOption[] = Array.from(
+  { length: new Date().getFullYear() - 1970 + 1 },
+  (_, i) => {
+    const year = new Date().getFullYear() - i;
+    return { value: year, label: `${year}년` };
+  },
+);
 
-// export const DeveloperExp;
+export const BIRTH_MONTH_OPTIONS: SelectOption[] = Array.from({ length: 12 }, (_, i) => ({
+  value: i + 1,
+  label: `${i + 1}월`,
+}));
+
+export const BIRTH_DAY_OPTIONS: SelectOption[] = Array.from({ length: 31 }, (_, i) => ({
+  value: i + 1,
+  label: `${i + 1}일`,
+}));
+
 export const CAREER_EXP_OPTIONS: SelectOption[] = [
   { value: "student", label: "학생" },
   { value: "job-seeker", label: "취준생" },

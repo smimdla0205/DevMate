@@ -3,27 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
   min-width: 1080px;
   gap: 40px;
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
-
-  &__button {
-    margin-top: auto;
-    height: 48px;
-  }
-
-  &__inputblock {
-    display: flex;
-    width: 100%;
-    flex-direction: row;
-    gap: 15px;
-  }
 }
