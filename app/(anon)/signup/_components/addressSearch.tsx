@@ -7,11 +7,11 @@ import type { Address } from "react-daum-postcode";
 import { IoClose } from "react-icons/io5";
 
 interface AddressSearchProps {
-  setAddress: (address: { address: string; zonecode: string }) => void;
+  onChange: (address: { address: string; zonecode: string }) => void;
   handleComplete: () => void;
 }
 
-export default function AddressSearch({ setAddress, handleComplete }: AddressSearchProps) {
+export default function AddressSearch({ onChange, handleComplete }: AddressSearchProps) {
   const complete = (data: Address) => {
     const extraAddress = [data.bname !== "" ? data.bname : "", data.buildingName !== "" ? data.buildingName : ""]
       .filter(Boolean)
@@ -19,7 +19,7 @@ export default function AddressSearch({ setAddress, handleComplete }: AddressSea
 
     const fullAddress = extraAddress ? `${data.address} (${extraAddress})` : data.address;
     const zonecode = data.zonecode;
-    setAddress({
+    onChange({
       address: fullAddress,
       zonecode: zonecode,
     });

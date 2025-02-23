@@ -6,8 +6,8 @@ import type { MultiValue, SingleValue } from "react-select";
 import type { postCode, SignupState, SignupAction } from "./use-signup";
 
 export function useSignupHandlers(state: SignupState, dispatch: Dispatch<SignupAction>) {
-  // ✅ 일반 입력 필드 핸들러
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  // 일반 입력 필드 핸들러
+  const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: "SET_INPUT",
       name: e.target.name as keyof SignupState,
@@ -15,8 +15,11 @@ export function useSignupHandlers(state: SignupState, dispatch: Dispatch<SignupA
     });
   };
 
-  // ✅ Select 옵션 핸들러
-  const handleSelectChange = (selected: SingleValue<SelectOption> | MultiValue<SelectOption> | null, name?: string) => {
+  //  Select 옵션 핸들러
+  const selectChangeHandler = (
+    selected: SingleValue<SelectOption> | MultiValue<SelectOption> | null,
+    name?: string,
+  ) => {
     if (name === "stack") {
       dispatch({ type: "SET_TECH_STACK", value: selected as MultiValue<SelectOption> });
     } else if (name === "position") {
@@ -26,8 +29,8 @@ export function useSignupHandlers(state: SignupState, dispatch: Dispatch<SignupA
     }
   };
 
-  // ✅ 생년월일 변경 핸들러
-  const handleBirthChange = (type: "year" | "month" | "day", selected: SelectOption | null) => {
+  //  생년월일 변경 핸들러
+  const birthChangeHandler = (type: "year" | "month" | "day", selected: SelectOption | null) => {
     if (selected) {
       dispatch({
         type: "SET_BIRTHDATE",
@@ -38,15 +41,15 @@ export function useSignupHandlers(state: SignupState, dispatch: Dispatch<SignupA
     }
   };
 
-  // ✅ 성별 변경 핸들러
-  const handleGenderChange = (selectedGender: string) => {
+  //  성별 변경 핸들러
+  const genderChangeHandler = (selectedGender: string) => {
     dispatch({ type: "SET_GENDER", gender: selectedGender });
   };
 
-  // ✅ 주소 변경 핸들러
-  const setAddress = (address: postCode) => {
+  //  주소 변경 핸들러
+  const addressChangeHandler = (address: postCode) => {
     dispatch({ type: "SET_ADDRESS", address });
   };
 
-  return { handleChange, handleSelectChange, handleBirthChange, handleGenderChange, setAddress };
+  return { changeHandler, selectChangeHandler, birthChangeHandler, genderChangeHandler, addressChangeHandler };
 }
