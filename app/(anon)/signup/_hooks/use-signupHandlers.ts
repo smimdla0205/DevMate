@@ -53,84 +53,75 @@ export function useSignupHandlers(state: SignupState, dispatch: Dispatch<SignupA
     dispatch({ type: "SET_ADDRESS", address });
   };
 
+  // 입력 필드 포커스 아웃 핸들러
   const onBlurHandler = (e: FocusEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    let error = "";
 
-    if (name === "email" && (!value || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))) {
-      error = ERROR_MESSAGES.EMAIL_INVALID;
-    }
+    const validationRules: { [key: string]: (value: string) => string | null } = {
+      email: (val) => (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ? ERROR_MESSAGES.EMAIL_INVALID : null),
+      password: (val) => {
+        if (!val || val.length < 8) return ERROR_MESSAGES.PASSWORD_MIN_LENGTH;
+        if (!/[a-z]/.test(val) || !/\d/.test(val) || !/[\W_]/.test(val)) {
+          return ERROR_MESSAGES.PASSWORD_COMPLEXITY;
+        }
+        return null;
+      },
+      name: (val) => (/[^a-zA-Z가-힣]/.test(val) ? ERROR_MESSAGES.NAME_INVALID_CHARACTERS : null),
+      nickname: (val) => (/[^a-zA-Z0-9가-힣]/.test(val) ? ERROR_MESSAGES.NICKNAME_INVALID_CHARACTERS : null),
+    };
 
-    if (name === "password") {
-      if (!value || value.length < 8) {
-        error = ERROR_MESSAGES.PASSWORD_MIN_LENGTH;
-      } else if (!/[A-Z]/.test(value) || !/[a-z]/.test(value) || !/\d/.test(value) || !/[\W_]/.test(value)) {
-        error = ERROR_MESSAGES.PASSWORD_COMPLEXITY;
-      }
-    }
+    const errorMessage = validationRules[name]?.(value) || null;
 
-    if (name === "name" && /[^a-zA-Z가-힣]/.test(value)) {
-      error = ERROR_MESSAGES.NAME_INVALID_CHARACTERS;
-    }
-
-    if (name === "nickname" && /[^a-zA-Z0-9가-힣]/.test(value)) {
-      error = ERROR_MESSAGES.NICKNAME_INVALID_CHARACTERS;
-    }
-
-    if (error) {
-      dispatch({ type: "SET_ERRORS", errors: { ...state.errors, [name]: error } });
-    } else {
-      const newErrors = { ...state.errors };
-      delete newErrors[name as keyof SignupState];
-      dispatch({ type: "SET_ERRORS", errors: newErrors });
-    }
+    dispatch({
+      type: "SET_ERRORS",
+      errors: errorMessage
+        ? { ...state.errors, [name]: errorMessage }
+        : Object.fromEntries(Object.entries(state.errors).filter(([key]) => key !== name)), // 🔹 `delete` 없이 에러 제거
+    });
   };
 
+  // 비밀번호 확인 입력 필드 포커스 아웃 핸들러
+  const onBlurPwdConfHandler = (passwordConfirm: string, setPasswordConfirmError: (error: string | null) => void) => {
+    const errorMessage =
+      passwordConfirm !== state.password && passwordConfirm.trim() ? ERROR_MESSAGES.PASSWORD_MISMATCH : null;
+
+    setPasswordConfirmError(errorMessage);
+  };
+
+  // 회원가입 제출 핸들러 (필수 입력값 체크)
   const submitHandler = () => {
-    dispatch({ type: "RESET_ERRORS" }); // 🔹 기존 에러 초기화
+    dispatch({ type: "RESET_ERRORS" });
 
     const newErrors: SignupState["errors"] = {};
-    if (!state.email.trim()) {
-      newErrors.email = ERROR_MESSAGES.EMAIL_REQUIRED;
-    }
-    if (!state.password.trim()) {
-      newErrors.password = ERROR_MESSAGES.PASSWORD_REQUIRED;
-    }
-    if (!state.name.trim()) {
-      newErrors.name = ERROR_MESSAGES.NAME_REQUIRED;
-    }
-    if (!state.nickname.trim()) {
-      newErrors.nickname = ERROR_MESSAGES.NICKNAME_REQUIRED;
-    }
-    if (!state.gender) {
-      newErrors.gender = ERROR_MESSAGES.GENDER_REQUIRED;
-    }
-    if (!state.birthDate.year || !state.birthDate.month || !state.birthDate.day) {
-      newErrors.birthDate = ERROR_MESSAGES.BIRTH_REQUIRED;
-    }
-    if (!state.address.address) {
-      newErrors.address = ERROR_MESSAGES.ADDRESS_REQUIRED;
-    }
-    if (!state.position?.value) {
-      newErrors.position = ERROR_MESSAGES.POSITION_REQUIRED;
-    }
-    if (!state.stack?.length) {
-      newErrors.stack = ERROR_MESSAGES.TECH_STACK_REQUIRED;
-    }
-    if (!state.career?.value) {
-      newErrors.career = ERROR_MESSAGES.CAREER_REQUIRED;
-    }
 
-    // 🔹 현재 상태(state.errors)에 기존 에러가 있는 경우 제출 차단
+    const fieldValidations: { [key in keyof SignupState]?: string } = {
+      email: state.email.trim() ? "" : ERROR_MESSAGES.EMAIL_REQUIRED,
+      password: state.password.trim() ? "" : ERROR_MESSAGES.PASSWORD_REQUIRED,
+      name: state.name.trim() ? "" : ERROR_MESSAGES.NAME_REQUIRED,
+      nickname: state.nickname.trim() ? "" : ERROR_MESSAGES.NICKNAME_REQUIRED,
+      gender: state.gender ? "" : ERROR_MESSAGES.GENDER_REQUIRED,
+      birthDate:
+        state.birthDate.year && state.birthDate.month && state.birthDate.day ? "" : ERROR_MESSAGES.BIRTH_REQUIRED,
+      address: state.address.address ? "" : ERROR_MESSAGES.ADDRESS_REQUIRED,
+      position: state.position?.value ? "" : ERROR_MESSAGES.POSITION_REQUIRED,
+      stack: state.stack?.length ? "" : ERROR_MESSAGES.TECH_STACK_REQUIRED,
+      career: state.career?.value ? "" : ERROR_MESSAGES.CAREER_REQUIRED,
+    };
+
+    Object.entries(fieldValidations).forEach(([key, errorMessage]) => {
+      if (errorMessage) {
+        newErrors[key as keyof SignupState] = errorMessage;
+      }
+    });
+
     if (Object.keys(state.errors).length > 0) {
-      console.log("❌ 기존 에러 메시지가 존재하여 제출 불가!", state.errors);
+      console.log("기존 에러 메시지가 존재하여 제출 불가!", state.errors);
       return;
     }
 
-    // 🔹 새로운 에러가 있으면 제출 차단
     if (Object.keys(newErrors).length > 0) {
       dispatch({ type: "SET_ERRORS", errors: newErrors });
-      console.log("❌ 필수 입력값 누락으로 제출 불가!", newErrors);
+      console.log("필수 입력값 누락으로 제출 불가!", newErrors);
       return;
     }
 
@@ -144,6 +135,7 @@ export function useSignupHandlers(state: SignupState, dispatch: Dispatch<SignupA
     genderChangeHandler,
     addressChangeHandler,
     onBlurHandler,
+    onBlurPwdConfHandler,
     submitHandler,
   };
 }

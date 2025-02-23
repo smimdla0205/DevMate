@@ -8,9 +8,7 @@ import { useSignup } from "./_hooks/use-signupReducer";
 
 export default function SignUp() {
   const { container, container__top } = styles;
-
   const { state, dispatch } = useSignup();
-  // SignUpForm 회원가입 실패시 오류 메세지 출력 - 오류 메세지 커스텀
   // 회원가입 성공시 로그인 페이지로 이동
   // state 값 api 타입으로 변경
   return (

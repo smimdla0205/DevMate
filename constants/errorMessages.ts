@@ -1,7 +1,7 @@
 export const ERROR_MESSAGES = {
   EMAIL_INVALID: "올바른 이메일 형식이 아닙니다.",
   PASSWORD_MIN_LENGTH: "비밀번호는 최소 8자 이상이어야 합니다.",
-  PASSWORD_COMPLEXITY: "비밀번호는 대문자, 소문자, 숫자, 특수문자를 포함해야 합니다.",
+  PASSWORD_COMPLEXITY: "비밀번호는 소문자, 숫자, 특수문자를 포함해야 합니다.",
   NAME_INVALID_CHARACTERS: "이름에 특수문자는 사용할 수 없습니다.",
   NICKNAME_INVALID_CHARACTERS: "닉네임에 특수문자는 사용할 수 없습니다.",
 
@@ -20,4 +20,7 @@ export const ERROR_MESSAGES = {
   // API 응답 에러
   DUPLICATE_NICKNAME: "이미 사용 중인 닉네임입니다.",
   DUPLICATE_EMAIL: "이미 사용 중인 아이디입니다.",
+
+  PASSWORD_CONFIRM_REQUIRED: "비밀번호 확인을 입력해주세요.",
+  PASSWORD_MISMATCH: "비밀번호가 일치하지 않습니다.",
 } as const;

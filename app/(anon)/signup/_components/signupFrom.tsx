@@ -31,9 +31,13 @@ export default function SignUpForm({ state, dispatch }: SignUpFormProps) {
     genderChangeHandler,
     addressChangeHandler,
     onBlurHandler,
+    onBlurPwdConfHandler,
     submitHandler,
   } = useSignupHandlers(state, dispatch);
   const [isAddrSearchOpen, setIsAddrSearchOpen] = useState(false);
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [passwordConfirmError, setPasswordConfirmError] = useState<string | null>(null); // 🔹 비밀번호 확인 에러 상태 추가
+
   return (
     <form className={container}>
       <div className={container__inputblock}>
@@ -63,8 +67,10 @@ export default function SignUpForm({ state, dispatch }: SignUpFormProps) {
         name="passwordConfirm"
         type="password"
         label="비밀번호 확인"
-        value={state.password}
-        onChange={changeHandler}
+        value={passwordConfirm}
+        onChange={(e) => setPasswordConfirm(e.target.value)}
+        onBlur={() => onBlurPwdConfHandler(passwordConfirm, setPasswordConfirmError)}
+        error={passwordConfirmError}
       />
 
       <div className={container__inputblock}>
