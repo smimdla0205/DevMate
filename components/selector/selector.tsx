@@ -19,6 +19,7 @@ interface SelectorProps {
   placeholder?: string;
   isMulti?: boolean;
   title?: string;
+  error?: string | null;
 }
 
 export default function Selector({
@@ -29,8 +30,9 @@ export default function Selector({
   onChange,
   placeholder,
   isMulti = false,
+  error,
 }: SelectorProps) {
-  const { container } = styles;
+  const { container, container__error } = styles;
   const instanceId = useId();
   return (
     <div className={container}>
@@ -64,6 +66,7 @@ export default function Selector({
           }),
         }}
       />
+      {error && <p className={container__error}>{error}</p>}
     </div>
   );
 }

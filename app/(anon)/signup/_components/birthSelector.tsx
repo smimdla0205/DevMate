@@ -14,9 +14,10 @@ interface BirthSelectorProps {
     day: number;
   };
   onChange: (type: "year" | "month" | "day", selected: SelectOption | null) => void;
+  error?: string | null;
 }
 
-export default function BirthSelector({ birthDate, onChange }: BirthSelectorProps) {
+export default function BirthSelector({ birthDate, onChange, error }: BirthSelectorProps) {
   return (
     <div className={styles.container}>
       <label>생년월일</label>
@@ -43,6 +44,7 @@ export default function BirthSelector({ birthDate, onChange }: BirthSelectorProp
           onChange={(selected) => onChange("day", selected as SingleValue<SelectOption>)}
         />
       </div>
+      {error && <p className={styles.container__error}>{error}</p>}
     </div>
   );
 }

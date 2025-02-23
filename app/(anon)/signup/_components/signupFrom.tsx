@@ -9,7 +9,7 @@ import styles from "./signupForm.module.scss";
 
 import { POSITION_OPTIONS, TECH_STACK_OPTIONS, CAREER_EXP_OPTIONS } from "@/constants/selectOptions";
 
-import type { SignupState, SignupAction } from "@/app/(anon)/signup/_hooks/use-signup";
+import type { SignupState, SignupAction } from "@/app/(anon)/signup/_hooks/use-signupReducer";
 
 import AddressSearch from "./addressSearch";
 import BirthSelector from "./birthSelector";
@@ -24,20 +24,41 @@ interface SignUpFormProps {
 
 export default function SignUpForm({ state, dispatch }: SignUpFormProps) {
   const { container, container__button, container__inputblock, container__submit } = styles;
-  const { changeHandler, selectChangeHandler, birthChangeHandler, genderChangeHandler, addressChangeHandler } =
-    useSignupHandlers(state, dispatch);
+  const {
+    changeHandler,
+    selectChangeHandler,
+    birthChangeHandler,
+    genderChangeHandler,
+    addressChangeHandler,
+    onBlurHandler,
+    submitHandler,
+  } = useSignupHandlers(state, dispatch);
   const [isAddrSearchOpen, setIsAddrSearchOpen] = useState(false);
-
   return (
     <form className={container}>
       <div className={container__inputblock}>
-        <InputField name="email" label="이메일" value={state.email} onChange={changeHandler} />
+        <InputField
+          name="email"
+          label="이메일"
+          value={state.email}
+          onChange={changeHandler}
+          onBlur={onBlurHandler}
+          error={state.errors.email}
+        />
         <Button className={container__button} variant="sub" size="long" onClick={() => console.log("버튼 클릭")}>
           중복확인
         </Button>
       </div>
 
-      <InputField name="password" type="password" label="비밀번호" value={state.password} onChange={changeHandler} />
+      <InputField
+        name="password"
+        type="password"
+        label="비밀번호"
+        value={state.password}
+        onChange={changeHandler}
+        onBlur={onBlurHandler}
+        error={state.errors.password}
+      />
       <InputField
         name="passwordConfirm"
         type="password"
@@ -47,12 +68,31 @@ export default function SignUpForm({ state, dispatch }: SignUpFormProps) {
       />
 
       <div className={container__inputblock}>
-        <InputField name="name" label="이름" value={state.name} onChange={changeHandler} />
-        <GenderSelector selectedGender={state.gender} onChange={genderChangeHandler} className={container__button} />
+        <InputField
+          name="name"
+          label="이름"
+          value={state.name}
+          onChange={changeHandler}
+          onBlur={onBlurHandler}
+          error={state.errors.name}
+        />
+        <GenderSelector
+          selectedGender={state.gender}
+          onChange={genderChangeHandler}
+          className={container__button}
+          error={state.errors.gender}
+        />
       </div>
 
-      <InputField name="nickname" label="닉네임" value={state.nickname} onChange={changeHandler} />
-      <BirthSelector birthDate={state.birthDate} onChange={birthChangeHandler} />
+      <InputField
+        name="nickname"
+        label="닉네임"
+        value={state.nickname}
+        onChange={changeHandler}
+        onBlur={onBlurHandler}
+        error={state.errors.nickname}
+      />
+      <BirthSelector birthDate={state.birthDate} onChange={birthChangeHandler} error={state.errors.birthDate} />
 
       <Selector
         name="position"
@@ -61,6 +101,7 @@ export default function SignUpForm({ state, dispatch }: SignUpFormProps) {
         options={POSITION_OPTIONS}
         selectedValue={state.position}
         onChange={(selected) => selectChangeHandler(selected, "position")}
+        error={state.errors.position}
       />
 
       <Selector
@@ -70,10 +111,16 @@ export default function SignUpForm({ state, dispatch }: SignUpFormProps) {
         options={TECH_STACK_OPTIONS}
         selectedValue={state.stack ?? []}
         onChange={(selected) => selectChangeHandler(selected, "stack")}
+        error={state.errors.stack}
       />
 
       <div className={container__inputblock}>
-        <InputField label="주소" value={`${state.address.address} ${state.address.zonecode}`} readOnly />
+        <InputField
+          label="주소"
+          value={`${state.address.address} ${state.address.zonecode}`}
+          readOnly
+          error={state.errors.address}
+        />
         <Button
           className={container__button}
           variant="sub"
@@ -91,9 +138,10 @@ export default function SignUpForm({ state, dispatch }: SignUpFormProps) {
         options={CAREER_EXP_OPTIONS}
         selectedValue={state.career}
         onChange={(selected) => selectChangeHandler(selected, "career")}
+        error={state.errors.career}
       />
 
-      <Button className={container__submit} variant="main" size="long" onClick={() => console.log(state)}>
+      <Button className={container__submit} variant="main" size="long" onClick={submitHandler}>
         가입하기
       </Button>
 

@@ -1,3 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  &__error {
+    color: red;
+    font-size: 12px;
+  }
+}
 .genderSelector {
   display: flex;
   gap: 10px;

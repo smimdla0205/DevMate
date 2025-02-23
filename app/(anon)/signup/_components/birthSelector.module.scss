@@ -13,4 +13,8 @@
       min-width: 0;
     }
   }
+  &__error {
+    color: red;
+    font-size: 12px;
+  }
 }

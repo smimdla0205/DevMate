@@ -6,7 +6,12 @@ export const ERROR_MESSAGES = {
   NICKNAME_INVALID_CHARACTERS: "닉네임에 특수문자는 사용할 수 없습니다.",
 
   // 폼 제출 시 필수 입력값 미입력
+  EMAIL_REQUIRED: "이메일을 입력해주세요.",
+  PASSWORD_REQUIRED: "비밀번호를 입력해주세요.",
+  NAME_REQUIRED: "이름을 입력해주세요.",
+  NICKNAME_REQUIRED: "닉네임을 입력해주세요.",
   GENDER_REQUIRED: "성별을 선택해주세요.",
+  BIRTH_REQUIRED: "생년월일을 입력해주세요.",
   ADDRESS_REQUIRED: "주소를 입력해주세요.",
   POSITION_REQUIRED: "직무를 선택해주세요.",
   TECH_STACK_REQUIRED: "기술 스택을 최소 1개 이상 선택해주세요.",

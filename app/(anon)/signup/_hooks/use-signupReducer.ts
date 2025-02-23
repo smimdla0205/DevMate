@@ -24,6 +24,8 @@ export interface SignupState {
   career: SelectOption | null;
   profileImg?: string;
   stack?: readonly SelectOption[];
+
+  errors: Partial<Record<keyof SignupState, string>>;
 }
 
 export type SignupAction =
@@ -34,6 +36,8 @@ export type SignupAction =
   | { type: "SET_TECH_STACK"; value: MultiValue<SelectOption> }
   | { type: "SET_ADDRESS"; address: postCode }
   | { type: "SET_GENDER"; gender: string }
+  | { type: "SET_ERRORS"; errors: SignupState["errors"] }
+  | { type: "RESET_ERRORS" }
   | { type: "RESET" };
 
 const signupReducer = (state: SignupState, action: SignupAction): SignupState => {
@@ -59,6 +63,10 @@ const signupReducer = (state: SignupState, action: SignupAction): SignupState =>
       return { ...state, address: action.address };
     case "SET_GENDER":
       return { ...state, gender: action.gender };
+    case "SET_ERRORS":
+      return { ...state, errors: action.errors };
+    case "RESET_ERRORS":
+      return { ...state, errors: {} };
     case "RESET":
       return initialState;
     default:
@@ -73,12 +81,12 @@ export const initialState: SignupState = {
   nickname: "",
   gender: "",
   birthDate: {
-    year: 2000,
-    month: 1,
-    day: 1,
+    year: 0,
+    month: 0,
+    day: 0,
   },
   position: {
-    value: 0,
+    value: "",
     label: "",
   },
   address: {
@@ -86,11 +94,12 @@ export const initialState: SignupState = {
     zonecode: "",
   },
   career: {
-    value: 0,
+    value: "",
     label: "",
   },
   profileImg: "",
   stack: [],
+  errors: {},
 };
 
 // ✅ 커스텀 훅 생성
