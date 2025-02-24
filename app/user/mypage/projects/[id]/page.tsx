@@ -4,11 +4,12 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 
 import Table from "@/components/table/table";
+import Modal from "@/components/modal/Modal";
 import InputField from "@/components/inputField/InputField";
 
 import styles from "./ProjectDetail.module.scss";
 
-import projectData from "./components/projectData";
+import projectData from "./_components/projectData";
 
 export default function ProjectDetail() {
   const params = useParams();
@@ -17,6 +18,7 @@ export default function ProjectDetail() {
 
   const [isNoticeEdit, setIsNoticeEdit] = useState(false);
   const [noticeContent, setNoticeContent] = useState(project?.notices[0].content);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const applyTableHeaders = [
     { key: "user", label: "이름" },
@@ -35,6 +37,7 @@ export default function ProjectDetail() {
 
   const handleModal = (id: string) => {
     console.log("모달 열기, id:", id);
+    setIsModalOpen(true);
   };
 
   if (!project) {
@@ -69,7 +72,6 @@ export default function ProjectDetail() {
           {isNoticeEdit ? (
             <InputField value={noticeContent} onChange={(e) => setNoticeContent(e.target.value)} />
           ) : (
-            // <input type="text" defaultValue={noticeContent} onChange={(e) => setNoticeContent(e.target.value)} />
             <p>{noticeContent}</p>
           )}
         </div>
@@ -99,6 +101,36 @@ export default function ProjectDetail() {
           fontSize="14px"
         />
       </div>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <h1>🎨 지원서</h1>
+        <ul className={styles.modal__list}>
+          {Object.entries({
+            이름: project?.applications[0].user.name,
+            생년월일: project?.applications[0].user.brithDate,
+            직무: project?.applications[0].user.position,
+            성별: project?.applications[0].user.gender,
+            거주지: project?.applications[0].user.address,
+            경력: `${project?.applications[0].user.career}년`,
+            "희망 직무": project?.applications[0].position,
+            자기소개: project?.applications[0].introduction,
+          }).map(([label, value]) => (
+            <li key={label} className={styles.modal__list_item}>
+              <span>{label}</span> {value}
+            </li>
+          ))}
+          <li className={styles.modal__list_item}>
+            <span>포트폴리오</span>
+            {project?.applications[0].portfolioUrl ? (
+              <a href={project?.applications[0].portfolioUrl} target="_blank" rel="noopener noreferrer">
+                PDF 열람하기
+              </a>
+            ) : (
+              "첨부파일 없음"
+            )}
+          </li>
+        </ul>
+      </Modal>
     </div>
   );
 }
