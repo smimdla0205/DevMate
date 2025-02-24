@@ -19,8 +19,10 @@ const RecruitmentContent = () => {
           <h2 className={styles["recruitmentContent__subtitle"]}>
             🎯 프로젝트 제목 <span>{"게시판 만들기 프로젝트"}</span>
           </h2>
-          <h2 className={styles["recruitmentContent__subtitle"]}>🚩 프로젝트 목표</h2>
-          <p className={styles["recruitmentContent__description"]}>{"프로젝트 목표 내용"}</p>
+          <h2 className={styles["recruitmentContent__subtitle"]}>
+            🚩 프로젝트 목표 <span>{"프로젝트 목표 내용"}</span>
+          </h2>
+
           <h2 className={styles["recruitmentContent__subtitle"]}>
             📆 진행 기간 <span>{"2025년 03월 ~ 2025년 05월"}</span>
           </h2>
