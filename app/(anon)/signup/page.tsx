@@ -3,7 +3,7 @@ import Image from "next/image";
 
 import styles from "./signup.module.scss";
 
-import SignUpForm from "./_components/signupFrom";
+import SignUpForm from "./_components/signupForm";
 import { useSignup } from "./_hooks/use-signupReducer";
 
 export default function SignUp() {
