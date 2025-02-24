@@ -1,11 +1,11 @@
 import styles from "./RecruitmentDetail.module.scss";
 
 import type { User } from "@/domain/entities/user";
-import type { Project } from "@/domain/entities/project";
 import type { Comment } from "@/domain/entities/comment";
+import type { Project } from "@/domain/entities/project";
 
 import CommentForm from "./_components/CommentForm";
-import CommentContent from "./_components/CommentContent";
+import CommentContentList from "./_components/CommentContentList";
 import RecruitmentContent from "./_components/RecruitmentContent";
 
 const RecruitmentDetail = () => {
@@ -13,9 +13,7 @@ const RecruitmentDetail = () => {
     <div className={styles.container}>
       <RecruitmentContent />
 
-      {exampleProject.comments.map((comment) => (
-        <CommentContent key={comment.id} comment={comment} comments={comment.replies} />
-      ))}
+      <CommentContentList projects={exampleProject} />
 
       <CommentForm projectId={exampleProject.id} />
     </div>
@@ -50,6 +48,21 @@ const exampleComments: Comment[] = [
     replies: [
       {
         id: 2,
+        userId: "user789",
+        projectId: 1,
+        parentCommentId: 1,
+        content: "저도 관심 있습니다!",
+        createdAt: new Date(),
+        user: {
+          id: "user789",
+          email: "user789@example.com",
+          name: "성춘향",
+          nickname: "춘향이",
+          createdAt: new Date(),
+        },
+      },
+      {
+        id: 3,
         userId: "user789",
         projectId: 1,
         parentCommentId: 1,
