@@ -1,25 +1,28 @@
-.form {
+.commentForm {
+  width: 100%;
   display: flex;
   gap: 10px;
-  margin-bottom: 10px;
-}
+  margin: 24px 0;
 
-.input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
+  textarea {
+    width: 100%;
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+  }
 
-.button {
-  background: #0070f3;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
+  button {
+    background: #0070f3;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
 
-.button:hover {
-  background: #005bb5;
+    &:hover {
+      background: #005bb5;
+    }
+  }
 }

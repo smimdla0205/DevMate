@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import styles from "./CommentForm.module.scss";
+
 interface CommentFormProps {
   projectId: number;
   parentId?: number;
@@ -16,8 +18,8 @@ const CommentForm: React.FC<CommentFormProps> = ({ projectId, parentId }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input value={text} onChange={(e) => setText(e.target.value)} placeholder="댓글 입력..." />
+    <form className={styles.commentForm} onSubmit={handleSubmit}>
+      <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder="댓글을 작성해보세요." rows={4} />
       <button type="submit">등록</button>
     </form>
   );
