@@ -71,3 +71,34 @@
     background-color: $color-dark-gray;
   }
 }
+
+// 모달 스타일
+.modal__list {
+  max-width: 700px;
+  margin: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &_item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 16px;
+
+    span {
+      width: fit-content;
+      height: fit-content;
+      padding: 2px 10px;
+      border-radius: 4px;
+      color: white;
+      background-color: $color-dark-gray;
+      font-size: 12px;
+    }
+
+    a {
+      color: $color-main;
+      text-decoration: underline;
+    }
+  }
+}

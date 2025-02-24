@@ -47,10 +47,9 @@ export default async function ProjectDetail({ params }: { params: { id: string }
       </Suspense>
 
       {/* 참여 멤버 */}
-      <div className={styles.container__content} style={{ width: "50%" }}>
-        <h2>✨ 참여 멤버</h2>
+      <Suspense fallback={<p>참여 멤버 로딩 중...</p>}>
         <MembersSection applications={project.applications} />
-      </div>
+      </Suspense>
     </div>
   );
 }

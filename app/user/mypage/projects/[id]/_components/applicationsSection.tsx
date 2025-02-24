@@ -5,6 +5,8 @@ import { useState } from "react";
 import Table from "@/components/table/Table";
 import Modal from "@/components/modal/Modal";
 
+import styles from "../ProjectDetail.module.scss";
+
 import type { Applicant } from "./projectData";
 
 import ApplicantDetails from "./applicantDetails";
@@ -25,7 +27,7 @@ export default function ApplicationsSection({ applications }: { applications: Ap
   }));
 
   return (
-    <div>
+    <div className={styles.container__content}>
       <h2>🙆‍♀️ 신청 현황</h2>
       <Table
         headers={[

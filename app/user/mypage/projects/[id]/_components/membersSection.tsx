@@ -2,6 +2,8 @@
 
 import Table from "@/components/table/Table";
 
+import styles from "../ProjectDetail.module.scss";
+
 import type { Applicant } from "./projectData";
 
 export default function MembersSection({ applications }: { applications: Applicant[] }) {
@@ -11,13 +13,16 @@ export default function MembersSection({ applications }: { applications: Applica
   }));
 
   return (
-    <Table
-      headers={[
-        { key: "user", label: "이름" },
-        { key: "position", label: "직무" },
-      ]}
-      data={transformedMembers}
-      fontSize="14px"
-    />
+    <div className={styles.container__content} style={{ width: "50%" }}>
+      <h2>✨ 참여 멤버</h2>
+      <Table
+        headers={[
+          { key: "user", label: "이름" },
+          { key: "position", label: "직무" },
+        ]}
+        data={transformedMembers}
+        fontSize="14px"
+      />
+    </div>
   );
 }
