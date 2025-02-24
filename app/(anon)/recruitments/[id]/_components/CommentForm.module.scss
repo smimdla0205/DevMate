@@ -4,6 +4,17 @@
   gap: 10px;
   margin: 24px 0;
 
+  &__buttonWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+
+    & > button {
+      flex: 1;
+    }
+  }
+
   textarea {
     width: 100%;
     flex: 1;
@@ -11,18 +22,5 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: none;
-  }
-
-  button {
-    background: #0070f3;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-
-    &:hover {
-      background: #005bb5;
-    }
   }
 }

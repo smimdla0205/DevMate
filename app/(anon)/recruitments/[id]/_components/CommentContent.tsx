@@ -48,7 +48,13 @@ const CommentContent: React.FC<CommentProps> = ({ comment, comments }) => {
         <button onClick={handleDelete}>삭제</button>
       </div>
 
-      {showReplyForm && <CommentForm projectId={comment.projectId} parentId={comment.id} />}
+      {showReplyForm && (
+        <CommentForm
+          projectId={comment.projectId}
+          parentId={comment.id}
+          onClickCloseReplyForm={() => setShowReplyForm(!showReplyForm)}
+        />
+      )}
 
       {replies.map((reply) => (
         <CommentContent key={reply.id} comment={reply} comments={comments} />
