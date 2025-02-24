@@ -16,10 +16,10 @@ interface TableProps {
   data: TableRowData[];
   headers: { key: string; label: string }[];
   onRowClick?: (row: TableRowData) => void;
-  onFormClick?: (id: string) => void;
+  onFormClick?: (id: number) => void;
 }
 
-export const renderCell = (key: string, value: string | number | ReactNode, onFormClick?: (url: string) => void) => {
+export const renderCell = (key: string, value: string | number | ReactNode, onFormClick?: (id: number) => void) => {
   if (key === "status") {
     const statusClass =
       value === "accept" ? styles.statusAccepted : value === "reject" ? styles.statusRejected : styles.statusWaiting;
@@ -38,7 +38,7 @@ export const renderCell = (key: string, value: string | number | ReactNode, onFo
         className={styles.portfolioButton}
         style={{ fontSize: "12px" }}
         onClick={(e) => {
-          onFormClick?.(value as string);
+          onFormClick?.(value as number);
           e.stopPropagation();
         }}
       >

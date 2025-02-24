@@ -27,8 +27,8 @@ export default function ApplicationsSection({ initialApplications }: Applicaiton
     setApplications(initialApplications);
   }, [initialApplications, setApplications]);
 
-  const handleModal = (id: string) => {
-    const applicant = applications.find((app) => app.id === Number(id));
+  const handleModal = (id: number) => {
+    const applicant = applications.find((app) => app.id === id);
     setSelectedApplicant(applicant || null);
     setIsModalOpen(true);
   };
