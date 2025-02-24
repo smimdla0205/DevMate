@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 
-import Table from "@/components/table/Table";
+import Table from "@/components/table/table";
 import Modal from "@/components/modal/Modal";
+import Button from "@/components/button/button";
 
 import styles from "../ProjectDetail.module.scss";
 
@@ -45,6 +46,18 @@ export default function ApplicationsSection({ applications }: { applications: Ap
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <h1>🎨 지원서</h1>
         {selectedApplicant && <ApplicantDetails applicant={selectedApplicant} />}
+
+        <span style={{ fontWeight: "bold", color: "#706efa", marginTop: "30px" }}>
+          프로젝트 참여를 수락하시겠습니까?
+        </span>
+        <div className={styles.modal__buttons}>
+          <Button variant="main" size="long" onClick={() => console.log("승인")}>
+            수락
+          </Button>
+          <Button variant="sub" size="long" onClick={() => console.log("거절")}>
+            거절
+          </Button>
+        </div>
       </Modal>
     </div>
   );
