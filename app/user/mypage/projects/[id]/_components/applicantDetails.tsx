@@ -1,4 +1,4 @@
-import styles from "./applicantDetails.module.scss";
+import styles from "../ProjectDetail.module.scss";
 
 import type { Applicant } from "./projectData";
 
