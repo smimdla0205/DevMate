@@ -6,8 +6,10 @@ import type { IconType } from "react-icons";
 
 interface InputFieldProps {
   label?: string;
+  name?: string;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   type?: string;
   placeholder?: string;
   error?: string | null;
@@ -15,12 +17,15 @@ interface InputFieldProps {
   disabled?: boolean;
   icon?: IconType;
   onIconClick?: () => void;
+  readOnly?: boolean;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
+  name,
   label,
   value,
   onChange,
+  onBlur,
   type = "text",
   placeholder = "",
   error,
@@ -28,6 +33,7 @@ const InputField: React.FC<InputFieldProps> = ({
   disabled = false,
   icon: Icon,
   onIconClick,
+  readOnly = false,
 }) => {
   return (
     <div className={`${styles.inputField} ${error ? styles.errorField : ""}`}>
@@ -43,7 +49,16 @@ const InputField: React.FC<InputFieldProps> = ({
           </span>
         )}
 
-        <input type={type} value={value} onChange={onChange} placeholder={placeholder} disabled={disabled} />
+        <input
+          name={name}
+          type={type}
+          value={value}
+          onBlur={onBlur}
+          onChange={onChange}
+          placeholder={placeholder}
+          disabled={disabled}
+          readOnly={readOnly}
+        />
         {onIconClick && Icon && (
           <button className={styles.iconContainer} onClick={onIconClick}>
             <Icon size={20} />
