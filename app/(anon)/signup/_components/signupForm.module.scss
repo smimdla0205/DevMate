@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+
+  &__button {
+    height: 48px;
+    margin-top: 23px;
+  }
+
+  &__inputblock {
+    display: flex;
+
+    width: 100%;
+    flex-direction: row;
+    gap: 15px;
+  }
+  &__submit {
+    margin-top: 21px;
+    width: 100%;
+    min-height: 48px;
+  }
+}
