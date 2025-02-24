@@ -29,6 +29,12 @@ const exampleUser: User = {
   nickname: "길동이",
   profileImg: "https://example.com/profile.jpg",
   createdAt: new Date(),
+  address: "인천시 연수구",
+  birthDate: new Date(2000, 9, 5),
+  career: 5,
+  gender: "MALE",
+  position: "프론트",
+  password: "",
 };
 
 const exampleComments: Comment[] = [
