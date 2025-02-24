@@ -1,107 +1,56 @@
-"use client";
-import { useParams } from "next/navigation";
+"use server";
 
-import { useState } from "react";
+import { notFound } from "next/navigation";
 
-import Modal from "@/components/modal/Modal";
-import Table from "@/components/table/table";
-import InputField from "@/components/inputField/InputField";
+import { Suspense } from "react";
 
 import styles from "./ProjectDetail.module.scss";
 
-import type { Applicant } from "./_components/projectData";
-
 import projectData from "./_components/projectData";
-import ApplicantDetails from "./_components/applicantDetails";
+import NoticeSection from "./_components/noticeSection";
+import MembersSection from "./_components/membersSection";
+import ApplicationsSection from "./_components/applicationsSection";
 
-export default function ProjectDetail() {
-  const params = useParams();
-  const projectId = params.id;
-  const project = projectData.find((project) => project.id === Number(projectId));
+export default async function ProjectDetail({ params }: { params: { id: string } }) {
+  const projectId = Number(params.id);
+  const project = projectData.find((p) => p.id === projectId);
 
-  const [isNoticeEdit, setIsNoticeEdit] = useState(false);
-  const [noticeContent, setNoticeContent] = useState(project?.notices[0].content);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedApplicant, setSelectedApplicant] = useState<Applicant | null>(null);
+  if (!project) return notFound();
 
-  const transformedApplications = (project?.applications ?? []).map((app) => ({
-    ...app,
-    user: typeof app.user === "object" && app.user !== null ? app.user.name : app.user,
-  }));
-
-  const applyTableHeaders = [
-    { key: "user", label: "이름" },
-    { key: "position", label: "희망 직무" },
-    { key: "status", label: "상태" },
-    { key: "id", label: "지원서 열람" },
-  ];
-  const memberTableHeaders = [
-    { key: "user", label: "이름" },
-    { key: "position", label: "직무" },
-  ];
-
-  const handleNoticeClick = () => {
-    setIsNoticeEdit(!isNoticeEdit);
-  };
-
-  const handleModal = (id: string) => {
-    const applicant = project?.applications.find((app) => app.id === Number(id));
-    setSelectedApplicant(applicant || null);
-    setIsModalOpen(true);
-  };
-
-  if (!project) {
-    return <div>Project not found</div>;
-  }
   return (
     <div className={styles.container}>
-      <h1 className={styles.container__title}>{project?.projectTitle}</h1>
+      <h1 className={styles.container__title}>{project.projectTitle}</h1>
 
       <div className={styles.container__content} style={{ width: "100%" }}>
         <h2>🎯 프로젝트 목표</h2>
-        <p>{project?.goal}</p>
+        <p>{project.goal}</p>
       </div>
 
       <div className={styles.container__row_2}>
         <div className={styles.container__content}>
           <h2>🗓️ 진행 기간</h2>
           <p>
-            {project?.projectPeriodStart}
-            <br />~ {project?.projectPeriodEnd}
+            {project.projectPeriodStart}
+            <br />~ {project.projectPeriodEnd}
           </p>
         </div>
 
-        <div className={styles.container__content}>
-          <div className={styles.container__notice__header}>
-            <h2>📌 공지사항</h2>
-            <button type="button" onClick={handleNoticeClick} className={isNoticeEdit ? styles.edit : styles.complete}>
-              {isNoticeEdit ? "완료" : "수정"}
-            </button>
-          </div>
-
-          {isNoticeEdit ? (
-            <InputField value={noticeContent} onChange={(e) => setNoticeContent(e.target.value)} />
-          ) : (
-            <p>{noticeContent}</p>
-          )}
-        </div>
+        {/* 공지사항 */}
+        <Suspense fallback={<p>공지사항 로딩 중...</p>}>
+          <NoticeSection notices={project.notices} />
+        </Suspense>
       </div>
 
-      <div className={styles.container__content}>
-        <h2>🙆‍♀️ 신청 현황</h2>
-        <Table headers={applyTableHeaders} data={transformedApplications} fontSize="14px" onFormClick={handleModal} />
-      </div>
+      {/* 신청 현황 */}
+      <Suspense fallback={<p>신청 현황 로딩 중...</p>}>
+        <ApplicationsSection applications={project.applications} />
+      </Suspense>
 
+      {/* 참여 멤버 */}
       <div className={styles.container__content} style={{ width: "50%" }}>
         <h2>✨ 참여 멤버</h2>
-        <Table headers={memberTableHeaders} data={transformedApplications} fontSize="14px" />
+        <MembersSection applications={project.applications} />
       </div>
-
-      {/* 모달 */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h1>🎨 지원서</h1>
-        {selectedApplicant && <ApplicantDetails applicant={selectedApplicant} />}
-      </Modal>
     </div>
   );
 }
