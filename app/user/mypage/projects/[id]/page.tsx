@@ -43,12 +43,12 @@ export default async function ProjectDetail({ params }: { params: { id: string }
 
       {/* 신청 현황 */}
       <Suspense fallback={<p>신청 현황 로딩 중...</p>}>
-        <ApplicationsSection applications={project.applications} />
+        <ApplicationsSection initialApplications={project.applications} />
       </Suspense>
 
       {/* 참여 멤버 */}
       <Suspense fallback={<p>참여 멤버 로딩 중...</p>}>
-        <MembersSection applications={project.applications} />
+        <MembersSection />
       </Suspense>
     </div>
   );

@@ -4,9 +4,10 @@ import Table from "@/components/table/table";
 
 import styles from "../ProjectDetail.module.scss";
 
-import type { Applicant } from "./projectData";
+import { useApplicationsStore } from "@/stores/useApplicationsStore";
 
-export default function MembersSection({ applications }: { applications: Applicant[] }) {
+export default function MembersSection() {
+  const { applications } = useApplicationsStore();
   const transformedMembers = applications
     .map((app) => ({
       ...app,
