@@ -1,4 +1,58 @@
-const projectData = [
+export interface User {
+  id: number;
+  name: string;
+  gender: "Male" | "Female";
+  brithDate: string; // ISO 8601 형식 (YYYY-MM-DDTHH:mm:ssZ)
+  position: string;
+  address: string;
+  career: number;
+}
+
+export interface Notice {
+  id: number;
+  content: string;
+}
+
+export interface Applicant {
+  id: number;
+  position: string;
+  introduction: string;
+  portfolioUrl: string;
+  status: "accept" | "waiting" | "reject";
+  user: User;
+}
+
+export interface Member {
+  id: number;
+  user: {
+    id: number;
+    name: string;
+    position: string;
+  };
+}
+
+export interface Project {
+  id: number;
+  recruitmentTitle: string;
+  projectTitle: string;
+  goal: string;
+  description: string;
+  projectPeriodStart: string; // ISO 8601 형식
+  projectPeriodEnd: string;
+  recruitmentStart: string;
+  recruitmentEnd: string;
+  createdAt: string;
+  leader: {
+    id: number;
+    name: string;
+  };
+  notices: Notice[];
+  applications: Applicant[];
+  member: Member[];
+}
+
+// projectData
+const projectData: Project[] = [
   {
     id: 1,
     recruitmentTitle: "프론트엔드 개발자 모집",
@@ -14,18 +68,12 @@ const projectData = [
       id: 1,
       name: "John Doe",
     },
-    notices: [
-      {
-        id: 1,
-        content: "Kickoff meeting on March 5th.",
-      },
-    ],
+    notices: [{ id: 1, content: "Kickoff meeting on March 5th." }],
     applications: [
       {
         id: 1,
         position: "프론트엔드 희망",
-        introduction:
-          "안녕하세요. 저는 프론트엔드 개발자입니다. 안녕하세요. 저는 프론트엔드 개발자입니다. 안녕하세요. 저는 프론트엔드 개발자입니다. 안녕하세요. 저는 프론트엔드 개발자입니다. 안녕하세요. 저는 프론트엔드 개발자입니다. 안녕하세요. 저는 프론트엔드 개발자입니다. 안녕하세요. 저는 프론트엔드 개발자입니다.",
+        introduction: "안녕하세요. 저는 프론트엔드 개발자입니다.",
         portfolioUrl: "https://example.com",
         status: "accept",
         user: {
