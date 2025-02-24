@@ -118,6 +118,7 @@ export default function SignUpForm({ state, dispatch }: SignUpFormProps) {
         selectedValue={state.stack ?? []}
         onChange={(selected) => selectChangeHandler(selected, "stack")}
         error={state.errors.stack}
+        width="373px"
       />
 
       <div className={container__inputblock}>

@@ -20,6 +20,8 @@ interface SelectorProps {
   isMulti?: boolean;
   title?: string;
   error?: string | null;
+  width?: string;
+  height?: string;
 }
 
 export default function Selector({
@@ -31,6 +33,8 @@ export default function Selector({
   placeholder,
   isMulti = false,
   error,
+  width,
+  height,
 }: SelectorProps) {
   const { container, container__error } = styles;
   const instanceId = useId();
@@ -53,7 +57,8 @@ export default function Selector({
         styles={{
           control: (provided, state) => ({
             ...provided,
-            minHeight: "48px",
+            minHeight: height || "48px",
+            maxWidth: width || "100%",
             borderColor: state.isFocused ? "transparent" : provided.borderColor,
           }),
           menuList: (provided) => ({
@@ -63,6 +68,16 @@ export default function Selector({
             "::-webkit-scrollbar": { width: "8px" },
             "::-webkit-scrollbar-thumb": { background: "#aaa", borderRadius: "8px" },
             "::-webkit-scrollbar-track": { background: "#f0f0f0" },
+          }),
+
+          multiValue: (provided) => ({
+            ...provided,
+            display: "flex",
+            flexWrap: "wrap",
+          }),
+          valueContainer: (provided) => ({
+            ...provided,
+            flexWrap: "wrap",
           }),
         }}
       />
