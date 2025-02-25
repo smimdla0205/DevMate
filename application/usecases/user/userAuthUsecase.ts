@@ -1,6 +1,5 @@
 import { getEncryptionKey } from "@/utils/security";
 
-import type { User } from "@prisma/client";
 import type { UserRepository } from "@/domain/repositories/userRepository";
 
 import type { UserSignUpDto } from "./dtos/userPost";
@@ -44,5 +43,9 @@ export class UserAuthUsecase {
     const userData = { ...rest, password: hashedPassword, address: encryptedAddress };
 
     return await this.userRepository.create(userData);
+  }
+  public async findByEmail(email: string): Promise<boolean> {
+    const existingUser = await this.userRepository.findByEmail(email);
+    return existingUser !== null;
   }
 }

@@ -33,6 +33,7 @@ export default function SignUpForm({ state, dispatch, onSubmit }: SignUpFormProp
     addressChangeHandler,
     onBlurHandler,
     onBlurPwdConfHandler,
+    emailCheckHandler,
   } = useSignupHandlers(state, dispatch);
   const [isAddrSearchOpen, setIsAddrSearchOpen] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -48,8 +49,9 @@ export default function SignUpForm({ state, dispatch, onSubmit }: SignUpFormProp
           onChange={changeHandler}
           onBlur={onBlurHandler}
           error={state.errors.email}
+          success={state.successMessages.email}
         />
-        <Button className={container__button} variant="sub" size="long" onClick={() => console.log("버튼 클릭")}>
+        <Button className={container__button} variant="sub" size="long" onClick={emailCheckHandler}>
           중복확인
         </Button>
       </div>
