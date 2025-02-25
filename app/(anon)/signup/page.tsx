@@ -9,8 +9,6 @@ import { useSignup } from "./_hooks/use-signupReducer";
 export default function SignUp() {
   const { container, container__top } = styles;
   const { state, dispatch } = useSignup();
-  // 회원가입 성공시 로그인 페이지로 이동
-  // state 값 api 타입으로 변경
   return (
     <div className={container}>
       <div className={container__top}>
