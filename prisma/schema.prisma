@@ -17,7 +17,7 @@ model User {
   email      String   @unique // 이메일 (로그인 ID)
   password   String   // 비밀번호
   name       String   // 이름
-  nickname   String   @unique // 닉네임
+  nickname   String   // 닉네임
   gender     String   // 성별 (Enum)
   birthDate  DateTime // 생년월일
   position   String   // 직군
