@@ -11,9 +11,9 @@ import RecruitmentContent from "./_components/RecruitmentContent";
 const RecruitmentDetail = () => {
   return (
     <div className={styles.container}>
-      <RecruitmentContent />
+      <RecruitmentContent project={exampleProject} />
 
-      <CommentContentList projects={exampleProject} />
+      <CommentContentList project={exampleProject} />
 
       <CommentForm projectId={exampleProject.id} />
     </div>
@@ -50,6 +50,7 @@ const exampleComments: Comment[] = [
       name: "이몽룡",
       nickname: "몽룡",
       createdAt: new Date(),
+      gender: "MALE",
     },
     replies: [
       {
@@ -65,6 +66,7 @@ const exampleComments: Comment[] = [
           name: "성춘향",
           nickname: "춘향이",
           createdAt: new Date(),
+          gender: "FEMALE",
         },
       },
       {
@@ -80,6 +82,7 @@ const exampleComments: Comment[] = [
           name: "성춘향",
           nickname: "춘향이",
           createdAt: new Date(),
+          gender: "MALE",
         },
       },
     ],
