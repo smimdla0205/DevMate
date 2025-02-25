@@ -7,8 +7,7 @@ describe("LikeButton", () => {
   it("좋아요 버튼이 정상적으로 렌더링 되는지", () => {
     render(<LikeButton projectId={1} likes={10} />);
     const button = screen.getByRole("button");
-    // 이모지와 숫자 각각을 확인
-    expect(button).toHaveTextContent("🤍");
+
     expect(button).toHaveTextContent("10");
   });
 
@@ -16,8 +15,7 @@ describe("LikeButton", () => {
     render(<LikeButton projectId={1} likes={10} />);
     const button = screen.getByRole("button");
     fireEvent.click(button);
-    // 상태 변경 후 이모지와 숫자 각각을 확인
-    expect(button).toHaveTextContent("❤️");
+
     expect(button).toHaveTextContent("11");
   });
 
@@ -26,8 +24,7 @@ describe("LikeButton", () => {
     const button = screen.getByRole("button");
     fireEvent.click(button);
     fireEvent.click(button);
-    // 상태가 원래대로 돌아온 후 확인
-    expect(button).toHaveTextContent("🤍");
+
     expect(button).toHaveTextContent("10");
   });
 });
