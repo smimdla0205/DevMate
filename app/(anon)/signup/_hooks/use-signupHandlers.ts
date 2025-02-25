@@ -89,7 +89,7 @@ export function useSignupHandlers(state: SignupState, dispatch: Dispatch<SignupA
   };
 
   // 회원가입 제출 핸들러 (필수 입력값 체크)
-  const submitHandler = () => {
+  const validateAndSubmit = () => {
     dispatch({ type: "RESET_ERRORS" });
 
     const newErrors: SignupState["errors"] = {};
@@ -116,16 +116,17 @@ export function useSignupHandlers(state: SignupState, dispatch: Dispatch<SignupA
 
     if (Object.keys(state.errors).length > 0) {
       console.log("기존 에러 메시지가 존재하여 제출 불가!", state.errors);
-      return;
+      return false;
     }
 
     if (Object.keys(newErrors).length > 0) {
       dispatch({ type: "SET_ERRORS", errors: newErrors });
       console.log("필수 입력값 누락으로 제출 불가!", newErrors);
-      return;
+      return false;
     }
 
-    console.log("회원가입 요청 실행!", state);
+    console.log("회원가입 유효성 검사 통과");
+    return true;
   };
 
   return {
@@ -136,6 +137,6 @@ export function useSignupHandlers(state: SignupState, dispatch: Dispatch<SignupA
     addressChangeHandler,
     onBlurHandler,
     onBlurPwdConfHandler,
-    submitHandler,
+    validateAndSubmit,
   };
 }

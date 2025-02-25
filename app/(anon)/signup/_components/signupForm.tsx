@@ -20,9 +20,10 @@ import { useSignupHandlers } from "@/app/(anon)/signup/_hooks/use-signupHandlers
 interface SignUpFormProps {
   state: SignupState;
   dispatch: Dispatch<SignupAction>;
+  onSubmit: () => void;
 }
 
-export default function SignUpForm({ state, dispatch }: SignUpFormProps) {
+export default function SignUpForm({ state, dispatch, onSubmit }: SignUpFormProps) {
   const { container, container__button, container__inputblock, container__submit } = styles;
   const {
     changeHandler,
@@ -32,7 +33,6 @@ export default function SignUpForm({ state, dispatch }: SignUpFormProps) {
     addressChangeHandler,
     onBlurHandler,
     onBlurPwdConfHandler,
-    submitHandler,
   } = useSignupHandlers(state, dispatch);
   const [isAddrSearchOpen, setIsAddrSearchOpen] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -148,7 +148,7 @@ export default function SignUpForm({ state, dispatch }: SignUpFormProps) {
         error={state.errors.career}
       />
 
-      <Button className={container__submit} variant="main" size="long" onClick={submitHandler}>
+      <Button className={container__submit} variant="main" size="long" onClick={onSubmit}>
         가입하기
       </Button>
 
