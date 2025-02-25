@@ -1,5 +1,4 @@
 .recruitmentContent {
-  padding: 24px;
   background-color: #fff;
 
   &__header {
@@ -32,6 +31,8 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
   }
 
   &__details {
