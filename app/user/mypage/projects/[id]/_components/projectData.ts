@@ -2,7 +2,7 @@ export interface User {
   id: number;
   name: string;
   gender: "Male" | "Female";
-  brithDate: string; // ISO 8601 형식 (YYYY-MM-DDTHH:mm:ssZ)
+  birthDate: string; // ISO 8601 형식 (YYYY-MM-DDTHH:mm:ssZ)
   position: string;
   address: string;
   career: number;
@@ -80,7 +80,7 @@ const projectData: Project[] = [
           id: 1,
           name: "Monica",
           gender: "Female",
-          brithDate: "1996-09-01T00:00:00Z",
+          birthDate: "1996-09-01T00:00:00Z",
           position: "프론트엔드",
           address: "부산광역시 동래구",
           career: 3,
@@ -96,7 +96,7 @@ const projectData: Project[] = [
           id: 4,
           name: "Chandler",
           gender: "Male",
-          brithDate: "1996-09-01T00:00:00Z",
+          birthDate: "1996-09-01T00:00:00Z",
           position: "백엔드",
           address: "캘리포니아주",
           career: 3,
@@ -112,7 +112,7 @@ const projectData: Project[] = [
           id: 4,
           name: "Pheobe",
           gender: "Female",
-          brithDate: "1996-09-01T00:00:00Z",
+          birthDate: "1996-09-01T00:00:00Z",
           position: "디자이너",
           address: "서울특별시 동대문구",
           career: 0,
@@ -128,7 +128,7 @@ const projectData: Project[] = [
           id: 4,
           name: "Joey",
           gender: "Female",
-          brithDate: "1996-09-01T00:00:00Z",
+          birthDate: "1996-09-01T00:00:00Z",
           position: "머신러닝",
           address: "서울특별시 중구",
           career: 3,

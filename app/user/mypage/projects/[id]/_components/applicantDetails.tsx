@@ -13,7 +13,7 @@ const ApplicantDetails = ({ applicant }: ApplicantDetailsProps) => {
     <ul className={styles.modal__list}>
       {Object.entries({
         이름: applicant.user.name,
-        생년월일: applicant.user.brithDate,
+        생년월일: applicant.user.birthDate,
         직무: applicant.user.position,
         성별: applicant.user.gender,
         거주지: applicant.user.address,
