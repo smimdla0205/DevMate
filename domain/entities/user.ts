@@ -1,16 +1,16 @@
 export interface UserBasicInfo {
-  id: string;
+  id?: string;
   email: string;
-  password: string;
+  password?: string;
   name: string;
   nickname: string;
   gender: string;
-  birthDate: Date;
-  position: string;
-  address: string;
-  career: number;
+  birthDate?: Date;
+  position?: string;
+  address?: string;
+  career?: number;
   profileImg?: string | null;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 /*
