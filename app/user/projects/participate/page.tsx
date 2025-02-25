@@ -1,8 +1,7 @@
 export default function Page() {
   return (
     <div>
-      <h1>Apply Status</h1>
-      <p>Apply Status page</p>
+      <h1>마이페이지 - 참여한 프로젝트</h1>
     </div>
   );
 }

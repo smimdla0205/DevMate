@@ -22,8 +22,8 @@ const sidebarItems = [
   {
     title: "프로젝트 조회",
     subItems: [
-      { name: "개설한 프로젝트", path: "/user/recruitments/open" },
-      { name: "참여한 프로젝트", path: "/user/recruitments/participate" },
+      { name: "개설한 프로젝트", path: "/user/projects/create" },
+      { name: "참여한 프로젝트", path: "/user/projects/participate" },
     ],
   },
   {
