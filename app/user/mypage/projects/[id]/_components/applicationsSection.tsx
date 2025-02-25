@@ -34,19 +34,25 @@ export default function ApplicationsSection({ initialApplications }: Applicaiton
   };
 
   const handleAccept = (id: number) => {
-    acceptApplicant(id);
     const accept = confirm("수락 후 되돌릴 수 없습니다. 정말 수락하시겠습니까?");
-    if (!accept) return;
-    alert("수락 완료되었습니다!");
-    setIsModalOpen(false);
+    if (!accept) {
+      return;
+    } else {
+      acceptApplicant(id);
+      alert("수락 완료되었습니다!");
+      setIsModalOpen(false);
+    }
   };
 
   const handleReject = (id: number) => {
-    rejectApplicant(id);
     const reject = confirm("거절 후 되돌릴 수 없습니다. 정말 거절하시겠습니까?");
-    if (!reject) return;
-    alert("거절 완료되었습니다.");
-    setIsModalOpen(false);
+    if (!reject) {
+      return;
+    } else {
+      rejectApplicant(id);
+      alert("거절 완료되었습니다.");
+      setIsModalOpen(false);
+    }
   };
 
   const transformedApplications = applications.map((app) => ({
