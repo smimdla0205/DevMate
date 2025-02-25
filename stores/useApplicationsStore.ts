@@ -1,6 +1,6 @@
 "use client";
 
-import type { Applicant } from "@/app/user/mypage/projects/[id]/_components/projectData";
+import type { Applicant } from "@/app/user/projects/[id]/_components/projectData";
 
 import { create } from "zustand";
 
