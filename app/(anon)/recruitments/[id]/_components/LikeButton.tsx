@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 
 import styles from "./LikeButton.module.scss";
 
+import { IoIosHeart, IoIosHeartEmpty } from "react-icons/io";
+
 interface LikeButtonProps {
   projectId: number;
   likes: number;
@@ -42,7 +44,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({ projectId, likes }) => {
 
   return (
     <button onClick={handleLike} className={styles.likeButton}>
-      {liked ? "❤️" : "🤍"}
+      {liked ? <IoIosHeart color={"red"} /> : <IoIosHeartEmpty />}
       <p>{likeCount}</p>
     </button>
   );
