@@ -1,32 +1,90 @@
 import styles from "./RecruitmentDetail.module.scss";
 
+import type { User } from "@/domain/entities/user";
+import type { Comment } from "@/domain/entities/comment";
+import type { Project } from "@/domain/entities/project";
+
+import CommentForm from "./_components/CommentForm";
+import CommentContentList from "./_components/CommentContentList";
 import RecruitmentContent from "./_components/RecruitmentContent";
 
 const RecruitmentDetail = () => {
   return (
     <div className={styles.container}>
       <RecruitmentContent />
+
+      <CommentContentList projects={exampleProject} />
+
+      <CommentForm projectId={exampleProject.id} />
     </div>
   );
 };
 
 export default RecruitmentDetail;
 
-interface Project {
-  id: number; // 프로젝트 ID
-  leaderId: string; // 프로젝트 리더 ID
-  recruitmentTitle: string; // 모집글 제목
-  projectTitle: string; // 프로젝트명
-  goal?: string; // 프로젝트 목표 (선택적)
-  description: string; // 프로젝트 설명
-  projectPeriodStart: Date; // 프로젝트 시작 기간
-  projectPeriodEnd: Date; // 프로젝트 종료 기간
-  recruitmentStart: Date; // 모집 시작일
-  recruitmentEnd: Date; // 모집 마감일
-  like: number; // 좋아요 수
-  hits: number; // 조회수
-  createdAt: Date; // 생성일
-}
+const exampleUser: User = {
+  id: "user123",
+  email: "user123@example.com",
+  name: "홍길동",
+  nickname: "길동이",
+  profileImg: "https://example.com/profile.jpg",
+  createdAt: new Date(),
+  address: "인천시 연수구",
+  birthDate: new Date(2000, 9, 5),
+  career: 5,
+  gender: "MALE",
+  position: "프론트",
+  password: "",
+};
+
+const exampleComments: Comment[] = [
+  {
+    id: 1,
+    userId: "user456",
+    projectId: 1,
+    content: "정말 좋은 프로젝트네요! 같이 하고 싶어요!",
+    createdAt: new Date(),
+    user: {
+      id: "user456",
+      email: "user456@example.com",
+      name: "이몽룡",
+      nickname: "몽룡",
+      createdAt: new Date(),
+    },
+    replies: [
+      {
+        id: 2,
+        userId: "user789",
+        projectId: 1,
+        parentCommentId: 1,
+        content: "저도 관심 있습니다!",
+        createdAt: new Date(),
+        user: {
+          id: "user789",
+          email: "user789@example.com",
+          name: "성춘향",
+          nickname: "춘향이",
+          createdAt: new Date(),
+        },
+      },
+      {
+        id: 3,
+        userId: "user789",
+        projectId: 1,
+        parentCommentId: 1,
+        content: "저도 관심 있습니다!",
+        createdAt: new Date(),
+        user: {
+          id: "user789",
+          email: "user789@example.com",
+          name: "성춘향",
+          nickname: "춘향이",
+          createdAt: new Date(),
+        },
+      },
+    ],
+  },
+];
 
 const exampleProject: Project = {
   id: 1,
@@ -42,4 +100,6 @@ const exampleProject: Project = {
   like: 12,
   hits: 150,
   createdAt: new Date(),
+  leader: exampleUser,
+  comments: exampleComments,
 };
