@@ -13,8 +13,8 @@ export default function MypageLayout({ children }: { children: ReactNode }) {
 
   // `/user/projects/[id]` 또는 `/user/projects/[id]/edit`이면서 `create`, `participate`는 제외
   const isDetailOrEditPage =
-    /^\/user\/projects\/(?!create$|participate$)[^/]+$/.test(pathname) ||
-    /^\/user\/projects\/(?!create$|participate$)[^/]+\/edit$/.test(pathname);
+    /^\/user\/projects\/(?!myCreate$|myParticipate$)[^/]+$/.test(pathname) ||
+    /^\/user\/projects\/(?!myCreate$|myParticipate$)[^/]+\/edit$/.test(pathname);
 
   // 해당 경로에서는 레이아웃을 적용하지 않음
   if (isDetailOrEditPage) return <>{children}</>;
