@@ -6,6 +6,7 @@ import { transformUserData } from "@/utils/transformUserData";
 
 import styles from "./signup.module.scss";
 
+import { signUp } from "./apis/singup";
 import SignUpForm from "./_components/signupForm";
 import { useSignup } from "./_hooks/use-signupReducer";
 import { useSignupHandlers } from "./_hooks/use-signupHandlers";
@@ -21,26 +22,11 @@ export default function SignUp() {
     try {
       const transformedData = transformUserData(state);
       console.log("전송할 데이터:", transformedData);
-      const response = await fetch("/api/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(transformedData),
-      });
-      const contentType = response.headers.get("content-type");
-      if (!contentType || !contentType.includes("application/json")) {
-        throw new Error("서버에서 JSON이 아닌 응답이 반환되었습니다.");
-      }
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "회원가입 요청 실패");
-      }
-      const responseData = await response.json();
+      const responseData = await signUp(transformedData);
+
       console.log("회원가입 성공:", responseData);
       router.push("/login");
-      // axios 변경 필요
     } catch (error) {
       if (error instanceof Error) {
         console.error("회원가입 실패:", error);
