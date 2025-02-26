@@ -6,7 +6,7 @@ import { transformUserData } from "@/utils/transformUserData";
 
 import styles from "./signup.module.scss";
 
-import { signUp } from "./apis/singup";
+import { signUp } from "./apis/signup";
 import SignUpForm from "./_components/signupForm";
 import { useSignup } from "./_hooks/use-signupReducer";
 import { useSignupHandlers } from "./_hooks/use-signupHandlers";
