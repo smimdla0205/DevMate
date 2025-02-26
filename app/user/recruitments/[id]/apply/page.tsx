@@ -80,12 +80,12 @@ const Apply: React.FC = () => {
 
         {/* 자기소개 (개발 역량) */}
         <div className={styles.apply__form__inputBox}>
-          <label className={styles.label}>자기소개 (개발 역량 등)</label>
+          <label className={styles.label}>자기소개</label>
           <textarea
             name="introduction"
             value={form.introduction}
             onChange={ChangeHandle}
-            placeholder="자신의 개발 역량을 소개해주세요."
+            placeholder="자신의 개발 역량, 지원 동기 등을 소개해주세요."
           />
         </div>
 
