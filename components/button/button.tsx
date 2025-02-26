@@ -8,7 +8,7 @@ type buttonSize = "small" | "large" | "long";
 interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> {
   variant?: buttonVariant;
   size?: buttonSize;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 export default function Button({
