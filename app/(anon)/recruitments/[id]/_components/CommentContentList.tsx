@@ -5,16 +5,16 @@ import type { Project } from "@/domain/entities/project";
 import CommentContent from "./CommentContent";
 
 interface CommentContentProps {
-  projects: Project;
+  project: Project;
 }
 
-const CommentContentList: React.FC<CommentContentProps> = ({ projects }) => {
+const CommentContentList: React.FC<CommentContentProps> = ({ project }) => {
   return (
     <div className={styles.commentContentList}>
       <p>
-        댓글 <span>{projects.comments.length}</span>
+        댓글 <span>{project.comments.length}</span>
       </p>
-      {projects.comments.map((comment) => (
+      {project.comments.map((comment) => (
         <CommentContent key={comment.id} comment={comment} comments={comment.replies} />
       ))}
     </div>
